@@ -54,14 +54,10 @@ syft_repo: https://github.com/anchore/syft
 # Lookup table for architecture
 syft:
   architecture:
-    x86: 386
     x86_64: amd64
   system:
     Linux: linux
     Darwin: darwin
-
-# Should the cli be downloaded
-syft_download: true
 
 # Version of the CLI to install
 syft_version: latest
@@ -73,18 +69,6 @@ syft_group: root
 syft_mode: '0755'
 </pre></code>
 
-
-### vars/main.yml
-<pre><code>
-syft:
-  architecture:
-    x86: 386
-    x86_64: amd64
-  system:
-    Linux: linux
-    Darwin: MacOS
-    windows: windows
-</pre></code>
 
 
 
