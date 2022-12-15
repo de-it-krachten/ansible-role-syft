@@ -1,0 +1,80 @@
+---
+
+- name: Lookup alternative system & architecture
+  ansible.builtin.set_fact:
+    syft_system: "{{ syft['system'][ansible_system] }}"
+    syft_architecture: "{{ syft['architecture'][ansible_architecture] | default(ansible_architecture) }}"
+
+- name: Get syft version installed
+  ansible.builtin.shell: |
+    set -o pipefail
+    syft version | awk '/^Version:/ {print $NF}'
+  changed_when: no
+  failed_when: no
+  register: syft_version_installed
+
+- name: Set installed version as fact
+  ansible.builtin.set_fact:
+    syft_version_installed: "{{ 'N/A' if syft_version_installed.stdout | length == 0 else 'v' + syft_version_installed.stdout }}"
+
+- name: Get latest syft release info
+  ansible.builtin.uri:
+    url: "{{ syft_api + '/releases/latest' }}"
+  check_mode: no
+  register: syft_version_info
+
+- name: Get latest release tag
+  ansible.builtin.set_fact:
+    syft_version_latest: "{{ syft_version_info.json.tag_name }}"
+
+- name: Replace 'latest' by the actual version
+  ansible.builtin.set_fact:
+    syft_version: "{{ syft_version_latest }}"
+  when: syft_version == 'latest'
+
+- name: Get all syft releases info
+  ansible.builtin.uri:
+    url: "{{ syft_api + '/releases?per_page=1000' }}"
+  check_mode: no
+  register: syft_version_info
+
+- name: Get version information
+  ansible.builtin.set_fact:
+    syft_version_info: "{{ syft_version_info.json | json_query(query) | first }}"
+  vars:
+    query: "[?tag_name=='{{ syft_version }}']"
+
+- name: Construct filename based on the system & architecture
+  ansible.builtin.set_fact:
+    syft_file: "syft_{{ syft_version | regex_replace('^v') }}_{{ syft_system }}_{{ syft_architecture }}.tar.gz"
+
+- name: Show syft release
+  ansible.builtin.debug:
+    msg:
+      - "syft latest release    : {{ syft_version_latest }}"
+      - "syft requested release : {{ syft_version }}"
+      - "syft installed release : {{ syft_version_installed }}"
+
+- name: Install/update syft
+  when: syft_version != syft_version_installed
+  block:
+
+    - name: Get binary location
+      ansible.builtin.set_fact:
+        syft_url: "{{ syft_version_info.assets | json_query(query) | first }}"
+      vars:
+        query: "[?name=='{{ syft_file }}'].browser_download_url"
+
+    - name: Download & extract binaries
+      ansible.builtin.unarchive:
+        src: "{{ syft_url }}"
+        dest: /tmp
+        remote_src: yes
+
+    - name: Copy binary to {{ syft_path }}
+      ansible.builtin.copy:
+        src: /tmp/syft
+        dest: "{{ syft_path }}"
+        mode: "0555"
+        remote_src: true
+      delegate_to: "{{ inventory_hostname }}"

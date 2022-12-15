@@ -1,0 +1,24 @@
+---
+
+# Github CLI - API
+syft_api: https://api.github.com/repos/anchore/syft
+
+# Github CLI - repo
+syft_repo: https://github.com/anchore/syft
+
+# Lookup table for architecture
+syft:
+  architecture:
+    x86_64: amd64
+  system:
+    Linux: linux
+    Darwin: darwin
+
+# Version of the CLI to install
+syft_version: latest
+
+# Location/ownership/permissions of the binary
+syft_path: /usr/local/bin/syft
+syft_owner: root
+syft_group: root
+syft_mode: '0755'
