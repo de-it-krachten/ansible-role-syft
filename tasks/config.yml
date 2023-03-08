@@ -7,3 +7,10 @@
     owner: root
     group: root
     mode: "0750"
+
+- name: Activate logrotation
+  ansible.builtin.template:
+    src: logrotate.j2
+    dest: /etc/logrotate.d/syft
+    mode: "0644"
+  notify: Logrotate

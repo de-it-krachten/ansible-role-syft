@@ -12,6 +12,7 @@ https://github.com/anchore/syft<br>
 
 #### Roles
 - deitkrachten.cron
+- deitkrachten.logrotate
 
 #### Collections
 - community.general
@@ -70,12 +71,15 @@ syft_mode: '0755'
 
 # File/directory location for Syft output
 syft_log_dir: /var/log/syft
-syft_log_file: syft.{{ lookup('pipe', 'date +%Y%m%d') }}.json
+syft_log_file: syft.json
+
+# Syft execution details
+syft_execution_command: "{{ syft_path }} / -q --output=json --file {{ syft_log_dir }}/{{ syft_log_file }}"
+syft_execution_user: root
+syft_execution_group: root
 
 # Syft schedule defaults
 syft_schedule: false
-syft_schedule_user: root
-syft_schedule_command: "{{ syft_path }} / -q --output=json --file {{ syft_log_dir }}/{{ syft_log_file }}"
 syft_schedule_times:
   weekday: '*'
   hour: '01'
@@ -99,6 +103,8 @@ syft_immediate: false
     syft_immediate: True
   roles:
     - deitkrachten.showinfo
+    - deitkrachten.cron
+    - deitkrachten.logrotate
   tasks:
     - name: Include role 'syft'
       ansible.builtin.include_role:

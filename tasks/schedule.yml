@@ -10,8 +10,8 @@
     weekday: "{{ syft_schedule_times['weekday'] }}"
     minute: "{{ syft_schedule_times['minute'] }}"
     hour: "{{ syft_schedule_times['hour'] }}"
-    user: "{{ syft_schedule_user }}"
-    job: "{{ syft_schedule_command }}"
+    user: "{{ syft_execution_user }}"
+    job: "{{ syft_execution_command }}"
     cron_file: syft
 
 - name: Execute scheduled script immediately
@@ -21,7 +21,7 @@
 
     - name: Execute script
       ansible.builtin.command:
-        cmd: "{{ syft_schedule_command }}"
+        cmd: "{{ syft_execution_command }}"
       become: yes
-      become_user: "{{ syft_schedule_user }}"
+      become_user: "{{ syft_execution_user }}"
       changed_when: true

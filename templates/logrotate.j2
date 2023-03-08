@@ -1,0 +1,11 @@
+{{ syft_log_dir }}/{{ syft_log_file}} {
+    compress
+    missingok
+    daily
+    create 0640 {{ syft_execution_user }} {{ syft_execution_group }}
+    rotate 7
+    dateext
+    dateformat .%Y%m%d
+    dateyesterday
+
+}

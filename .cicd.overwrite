@@ -13,6 +13,7 @@ generic:
 dependencies:
   roles:
     - deitkrachten.cron
+    - deitkrachten.logrotate
   collections: []
 
 # Molecule
@@ -20,7 +21,11 @@ molecule:
   requirements:
     roles_extra:
       - deitkrachten.cron
+      - deitkrachten.logrotate
   converge:
+    roles:
+      - deitkrachten.cron
+      - deitkrachten.logrotate
     vars:
       syft_schedule: true
       syft_immediate: true

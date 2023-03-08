@@ -4,3 +4,7 @@
   src: https://github.com/de-it-krachten/ansible-role-cron.git
   version: main
   scm: git
+- name: deitkrachten.logrotate
+  src: https://github.com/de-it-krachten/ansible-role-logrotate.git
+  version: main
+  scm: git
