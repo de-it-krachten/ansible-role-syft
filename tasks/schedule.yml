@@ -1,0 +1,27 @@
+---
+
+- name: Ensure all components are present
+  ansible.builtin.include_role:
+    name: deitkrachten.cron
+
+- name: Schedule daily report
+  ansible.builtin.cron:
+    name: Syft SBOM
+    weekday: "{{ syft_schedule_times['weekday'] }}"
+    minute: "{{ syft_schedule_times['minute'] }}"
+    hour: "{{ syft_schedule_times['hour'] }}"
+    user: "{{ syft_execution_user }}"
+    job: "{{ syft_execution_command }}"
+    cron_file: syft
+
+- name: Execute scheduled script immediately
+  when: syft_immediate | bool
+  tags: molecule-idempotence-notest
+  block:
+
+    - name: Execute script
+      ansible.builtin.command:
+        cmd: "{{ syft_execution_command }}"
+      become: yes
+      become_user: "{{ syft_execution_user }}"
+      changed_when: true

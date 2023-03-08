@@ -8,7 +8,9 @@
 - name: Get syft version installed
   ansible.builtin.shell: |
     set -o pipefail
-    syft version | awk '/^Version:/ {print $NF}'
+    {{ syft_path }} version | awk '/^Version:/ {print $NF}'
+  args:
+    executable: /bin/bash
   changed_when: no
   failed_when: no
   register: syft_version_installed
@@ -22,6 +24,8 @@
     url: "{{ syft_api + '/releases/latest' }}"
   check_mode: no
   register: syft_version_info
+  run_once: true
+  delegate_to: localhost
 
 - name: Get latest release tag
   ansible.builtin.set_fact:
@@ -36,7 +40,9 @@
   ansible.builtin.uri:
     url: "{{ syft_api + '/releases?per_page=1000' }}"
   check_mode: no
+  run_once: true
   register: syft_version_info
+  delegate_to: localhost
 
 - name: Get version information
   ansible.builtin.set_fact:
@@ -70,11 +76,11 @@
         src: "{{ syft_url }}"
         dest: /tmp
         remote_src: yes
+      run_once: yes
+      delegate_to: localhost
 
     - name: Copy binary to {{ syft_path }}
       ansible.builtin.copy:
         src: /tmp/syft
         dest: "{{ syft_path }}"
         mode: "0555"
-        remote_src: true
-      delegate_to: "{{ inventory_hostname }}"
