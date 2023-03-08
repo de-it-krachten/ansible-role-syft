@@ -78,6 +78,8 @@ syft_mode: '0755'
 - name: sample playbook for role 'syft'
   hosts: all
   become: "yes"
+  roles:
+    - deitkrachten.showinfo
   tasks:
     - name: Include role 'syft'
       ansible.builtin.include_role:
