@@ -9,6 +9,18 @@ generic:
     https://github.com/anchore/syft<br>
   collections: []
 
+# Dependencies
+dependencies:
+  roles:
+    - deitkrachten.cron
+  collections: []
+
+# Molecule
 molecule:
   requirements:
-    roles_extra: []
+    roles_extra:
+      - deitkrachten.cron
+  converge:
+    vars:
+      syft_schedule: true
+      syft_immediate: true

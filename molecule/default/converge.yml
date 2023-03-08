@@ -3,6 +3,9 @@
 - name: Converge
   hosts: all
   become: "yes"
+  vars:
+    syft_schedule: True
+    syft_immediate: True
   roles:
     - deitkrachten.showinfo
   tasks:

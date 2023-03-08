@@ -1,0 +1,9 @@
+---
+
+- name: Create output directory
+  ansible.builtin.file:
+    path: "{{ syft_log_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0750"
