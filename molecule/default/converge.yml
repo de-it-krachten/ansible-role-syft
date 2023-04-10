@@ -3,6 +3,13 @@
 - name: Converge
   hosts: all
   become: "yes"
+  vars:
+    syft_schedule: True
+    syft_immediate: True
+  roles:
+    - deitkrachten.showinfo
+    - deitkrachten.cron
+    - deitkrachten.logrotate
   tasks:
     - name: Include role 'ansible-role-syft'
       ansible.builtin.include_role:
