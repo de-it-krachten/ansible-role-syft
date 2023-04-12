@@ -1,11 +1,19 @@
 ---
 
-- name: Include install.yml
-  ansible.builtin.include_tasks: install.yml
+- name: Remove syft
+  ansible.builtin.include_tasks: remove.yml
+  when: syft_removal | bool
 
-- name: Include config.yml
-  ansible.builtin.include_tasks: config.yml
+- name: Install syft
+  when: not syft_removal | bool
+  block:
 
-- name: Include schedule.yml
-  ansible.builtin.include_tasks: schedule.yml
-  when: syft_schedule | bool
+    - name: Include install.yml
+      ansible.builtin.include_tasks: install.yml
+
+    - name: Include config.yml
+      ansible.builtin.include_tasks: config.yml
+
+    - name: Include schedule.yml
+      ansible.builtin.include_tasks: schedule.yml
+      when: syft_schedule | bool

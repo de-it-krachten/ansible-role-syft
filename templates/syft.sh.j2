@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Restrict permissions
+umask 027
+
+# Execute Syft
+{{ syft_path }} / \
+  --quiet \
+  --output=json \
+{% for exclude in syft_excludes %}
+  --exclude '{{ exclude }}' \
+{% endfor %}
+  --file {{ syft_log_dir }}/{{ syft_log_file }}

@@ -13,4 +13,10 @@
     src: logrotate.j2
     dest: /etc/logrotate.d/syft
     mode: "0644"
-  notify: Logrotate
+  register: __logrotate
+
+- name: Execute logrotation  # noqa no-handler
+  ansible.builtin.command: >
+    logrotate -f /etc/logrotate.d/syft
+  changed_when: true
+  when: __logrotate.changed

@@ -1,6 +1,0 @@
----
-
-- name: Logrotate
-  ansible.builtin.command: >
-    logrotate -f /etc/logrotate.d/syft
-  changed_when: true
