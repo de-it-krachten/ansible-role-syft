@@ -31,3 +31,19 @@
       become: yes
       become_user: "{{ syft_execution_user }}"
       changed_when: true
+
+    - name: Create local path
+      ansible.builtin.file:
+        path: "{{ syft_central_path }}/{{ inventory_hostname }}"
+        state: directory
+        mode: "0750"
+
+    - name: Retrieve reports
+      ansible.builtin.fetch:
+        src: "{{ item }}"
+        dest: "{{ syft_central_path }}/{{ inventory_hostname }}/"
+        flat: yes
+      loop:
+        - "{{ syft_log_dir }}/{{ syft_log_file }}"
+        - "{{ syft_log_dir }}/syft.spdx.json"
+        - "{{ syft_log_dir }}/syft.cyclonedx.json"
