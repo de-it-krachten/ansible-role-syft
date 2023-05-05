@@ -122,6 +122,7 @@ syft_output:
   vars:
     syft_schedule: True
     syft_immediate: True
+    syft_central_path: /tmp/syft
   roles:
     - deitkrachten.cron
     - deitkrachten.logrotate

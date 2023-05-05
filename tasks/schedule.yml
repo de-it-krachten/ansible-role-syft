@@ -37,6 +37,8 @@
         path: "{{ syft_central_path }}/{{ inventory_hostname }}"
         state: directory
         mode: "0750"
+      become: no
+      delegate_to: localhost
 
     - name: Retrieve reports
       ansible.builtin.fetch:

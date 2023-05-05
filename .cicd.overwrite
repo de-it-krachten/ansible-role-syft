@@ -29,3 +29,4 @@ molecule:
     vars:
       syft_schedule: true
       syft_immediate: true
+      syft_central_path: /tmp/syft
