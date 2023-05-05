@@ -7,7 +7,6 @@
     syft_schedule: True
     syft_immediate: True
   roles:
-    - deitkrachten.showinfo
     - deitkrachten.cron
     - deitkrachten.logrotate
   tasks:

@@ -93,6 +93,21 @@ syft_schedule_times:
 
 # Execute syft immediately
 syft_immediate: false
+
+# Central location to store all servers sbom files
+syft_central_path: /var/log/syft/central
+
+# Syft outout formats
+syft_output:
+  json:
+    format: json
+    file: syft.json
+  spdx:
+    format: spdx-json
+    file: syft.spdx.json
+  cyclonedx:
+    format: cyclonedx-json
+    file: syft.cyclonedx.json
 </pre></code>
 
 
@@ -108,7 +123,6 @@ syft_immediate: false
     syft_schedule: True
     syft_immediate: True
   roles:
-    - deitkrachten.showinfo
     - deitkrachten.cron
     - deitkrachten.logrotate
   tasks:
