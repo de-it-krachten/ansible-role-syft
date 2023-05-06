@@ -1,3 +1,11 @@
+## [1.1.1](https://github.com/de-it-krachten/ansible-role-syft/compare/v1.1.0...v1.1.1) (2023-05-06)
+
+
+### Bug Fixes
+
+* Add support for multiple SBOM formats ([1af4d3e](https://github.com/de-it-krachten/ansible-role-syft/commit/1af4d3e4b13abeafc5cefc598fa044e10f09beb9))
+* Move execution to wrapper script ([bb152d8](https://github.com/de-it-krachten/ansible-role-syft/commit/bb152d863b0dd27858f60f67f51c1bda7a15739e))
+
 # [1.1.0](https://github.com/de-it-krachten/ansible-role-syft/compare/v1.0.0...v1.1.0) (2023-04-10)
 
 
