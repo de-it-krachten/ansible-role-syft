@@ -46,6 +46,9 @@ Note:
 ## Role Variables
 ### defaults/main.yml
 <pre><code>
+# Remove syft
+syft_removal: false
+
 # Github CLI - API
 syft_api: https://api.github.com/repos/anchore/syft
 
@@ -74,7 +77,10 @@ syft_log_dir: /var/log/syft
 syft_log_file: syft.json
 
 # Syft execution details
-syft_execution_command: "{{ syft_path }} / -q --output=json --file {{ syft_log_dir }}/{{ syft_log_file }}"
+syft_wrapper_script: /usr/local/bin/syft.sh
+## syft_execution_command: "{{ syft_path }} / -q --output=json --file {{ syft_log_dir }}/{{ syft_log_file }}"
+syft_excludes:
+  - './tmp'
 syft_execution_user: root
 syft_execution_group: root
 
@@ -87,6 +93,21 @@ syft_schedule_times:
 
 # Execute syft immediately
 syft_immediate: false
+
+# Central location to store all servers sbom files
+syft_central_path: /var/log/syft/central
+
+# Syft outout formats
+syft_output:
+  json:
+    format: json
+    file: syft.json
+  spdx:
+    format: spdx-json
+    file: syft.spdx.json
+  cyclonedx:
+    format: cyclonedx-json
+    file: syft.cyclonedx.json
 </pre></code>
 
 
@@ -101,8 +122,8 @@ syft_immediate: false
   vars:
     syft_schedule: True
     syft_immediate: True
+    syft_central_path: /tmp/syft
   roles:
-    - deitkrachten.showinfo
     - deitkrachten.cron
     - deitkrachten.logrotate
   tasks:

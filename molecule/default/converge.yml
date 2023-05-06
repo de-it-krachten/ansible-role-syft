@@ -6,8 +6,8 @@
   vars:
     syft_schedule: True
     syft_immediate: True
+    syft_central_path: /tmp/syft
   roles:
-    - deitkrachten.showinfo
     - deitkrachten.cron
     - deitkrachten.logrotate
   tasks:

@@ -1,0 +1,11 @@
+---
+
+- name: Remove syft
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ syft_path }}"
+    - "{{ syft_wrapper_script }}"
+    - "{{ syft_log_dir }}"
+    - /etc/cron.d/syft

@@ -4,6 +4,12 @@
   ansible.builtin.include_role:
     name: deitkrachten.cron
 
+- name: Create wrapper script
+  ansible.builtin.template:
+    src: syft.sh.j2
+    dest: "{{ syft_wrapper_script }}"
+    mode: "0550"
+
 - name: Schedule daily report
   ansible.builtin.cron:
     name: Syft SBOM
@@ -11,7 +17,7 @@
     minute: "{{ syft_schedule_times['minute'] }}"
     hour: "{{ syft_schedule_times['hour'] }}"
     user: "{{ syft_execution_user }}"
-    job: "{{ syft_execution_command }}"
+    job: "{{ syft_wrapper_script }}"
     cron_file: syft
 
 - name: Execute scheduled script immediately
@@ -21,7 +27,25 @@
 
     - name: Execute script
       ansible.builtin.command:
-        cmd: "{{ syft_execution_command }}"
+        cmd: "{{ syft_wrapper_script }}"
       become: yes
       become_user: "{{ syft_execution_user }}"
       changed_when: true
+
+    - name: Create local path
+      ansible.builtin.file:
+        path: "{{ syft_central_path }}/{{ inventory_hostname }}"
+        state: directory
+        mode: "0750"
+      become: no
+      delegate_to: localhost
+
+    - name: Retrieve reports
+      ansible.builtin.fetch:
+        src: "{{ item }}"
+        dest: "{{ syft_central_path }}/{{ inventory_hostname }}/"
+        flat: yes
+      loop:
+        - "{{ syft_log_dir }}/{{ syft_log_file }}"
+        - "{{ syft_log_dir }}/syft.spdx.json"
+        - "{{ syft_log_dir }}/syft.cyclonedx.json"

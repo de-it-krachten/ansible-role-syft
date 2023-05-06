@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Restrict permissions
+umask 027
+
+# Execute Syft
+echo "--- Starting syft"
+{{ syft_path }} / \
+{% for exclude in syft_excludes %}
+  --exclude '{{ exclude }}' \
+{% endfor %}
+{% for output in syft_output | dict2items %}
+  -o {{ output.value.format }}={{ syft_log_dir }}/{{ output.value.file }} \
+{% endfor %}
+  --quiet
+
+{% if syft_transfer_remote is defined and syft_transfer_remote | bool %}
+# Transfer results
+echo "--- Transferring output to remote server"
+{% for output in syft_output | dict2items %}
+/usr/local/bin/file-transfer.sh {{ syft_log_dir }}/{{ output.value.file }}
+{% endfor %}
+{% endif %}
