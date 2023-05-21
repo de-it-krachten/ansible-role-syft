@@ -17,7 +17,7 @@
     minute: "{{ syft_schedule_times['minute'] }}"
     hour: "{{ syft_schedule_times['hour'] }}"
     user: "{{ syft_execution_user }}"
-    job: "{{ syft_wrapper_script }}"
+    job: "{{ syft_schedule_command }}"
     cron_file: syft
 
 - name: Execute scheduled script immediately
@@ -36,8 +36,11 @@
       ansible.builtin.file:
         path: "{{ syft_central_path }}/{{ inventory_hostname }}"
         state: directory
+        owner: "{{ lookup('pipe', 'id -un') }}"
+        group: "{{ lookup('pipe', 'id -gn') }}"
         mode: "0750"
-      become: no
+      run_once: yes
+      become: yes
       delegate_to: localhost
 
     - name: Retrieve reports
