@@ -1,5 +1,44 @@
 #!/bin/bash
 
+# Set temporary PATH
+export PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:$PATH
+
+# Get the name of the calling script
+FILENAME=$(readlink -f $0)
+BASENAME="${FILENAME##*/}"
+BASENAME_ROOT=${BASENAME%%.*}
+DIRNAME="${FILENAME%/*}"
+
+# Get name of symlink used to execute
+FILENAME1=$(realpath -s $0)
+BASENAME1="${FILENAME1##*/}"
+BASENAME1_ROOT=${BASENAME1%%.*}
+DIRNAME1="${FILENAME1%/*}"
+
+# Define temorary files, debug direcotory, config and lock file
+TMPDIR=$(mktemp -d)
+VARTMPDIR=/var/tmp
+TMPFILE=${TMPDIR}/${BASENAME}.${RANDOM}.${RANDOM}
+DEBUGDIR=${TMPDIR}/${BASENAME_ROOT}_${USER}
+CONFIGFILE=${DIRNAME}/${BASENAME_ROOT}.cfg
+LOCKFILE=${VARTMP}/${BASENAME_ROOT}.lck
+    
+# Logfile & directory
+LOGDIR=/var/log
+LOGFILE=${LOGDIR}/${BASENAME_ROOT}.log
+
+Transfer=false
+[[ $1 == -t ]] && Transfer=true && shift
+
+# Write to logfile only
+if [[ -t 0 ]]
+then
+  { coproc tee { tee -a $LOGFILE ;} >&3 ;} 3>&1
+  exec >&${tee[1]} 2>&1
+else
+  exec >>${LOGFILE} 2>&1
+fi
+
 # Restrict permissions
 umask 027
 
@@ -14,10 +53,16 @@ echo "--- Starting syft"
 {% endfor %}
   --quiet
 
-{% if syft_transfer_remote is defined and syft_transfer_remote | bool %}
-# Transfer results
-echo "--- Transferring output to remote server"
+# Send encrypted reports
+if [[ $Transfer == true ]]
+then
+  echo "--- Transferring files to remote server"
+  /usr/local/bin/file-transfer.sh \
 {% for output in syft_output | dict2items %}
-/usr/local/bin/file-transfer.sh {{ syft_log_dir }}/{{ output.value.file }}
-{% endfor %}
+{% if loop.last %}
+    {{ syft_log_dir }}/{{ output.value.file }}
+{% else %}
+    {{ syft_log_dir }}/{{ output.value.file }} \
 {% endif %}
+{% endfor %}
+fi
