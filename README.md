@@ -32,13 +32,15 @@ Supported platforms
 - OracleLinux 9
 - AlmaLinux 8
 - AlmaLinux 9
-- Debian 10 (Buster)
+- SUSE Linux Enterprise 15<sup>1</sup>
+- openSUSE Leap 15
+- Debian 10 (Buster)<sup>1</sup>
 - Debian 11 (Bullseye)
-- Ubuntu 18.04 LTS
+- Debian 12 (Bookworm)
 - Ubuntu 20.04 LTS
 - Ubuntu 22.04 LTS
-- Fedora 36
 - Fedora 37
+- Fedora 38
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
@@ -78,6 +80,7 @@ syft_log_file: syft.json
 
 # Syft execution details
 syft_wrapper_script: /usr/local/bin/syft.sh
+syft_schedule_command: '{{ syft_wrapper_script }}'
 ## syft_execution_command: "{{ syft_path }} / -q --output=json --file {{ syft_log_dir }}/{{ syft_log_file }}"
 syft_excludes:
   - './tmp'
@@ -95,7 +98,7 @@ syft_schedule_times:
 syft_immediate: false
 
 # Central location to store all servers sbom files
-syft_central_path: /var/log/syft/central
+syft_central_path: /var/log/syft_central
 
 # Syft outout formats
 syft_output:
