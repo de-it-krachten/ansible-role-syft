@@ -15,8 +15,7 @@ https://github.com/anchore/syft<br>
 - deitkrachten.logrotate
 
 #### Collections
-- community.general
-- ansible.posix
+None
 
 ## Platforms
 
@@ -34,13 +33,13 @@ Supported platforms
 - AlmaLinux 9
 - SUSE Linux Enterprise 15<sup>1</sup>
 - openSUSE Leap 15
-- Debian 10 (Buster)<sup>1</sup>
 - Debian 11 (Bullseye)
 - Debian 12 (Bookworm)
 - Ubuntu 20.04 LTS
 - Ubuntu 22.04 LTS
-- Fedora 37
-- Fedora 38
+- Ubuntu 24.04 LTS
+- Fedora 39
+- Fedora 40
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
@@ -121,10 +120,10 @@ syft_output:
 <pre><code>
 - name: sample playbook for role 'syft'
   hosts: all
-  become: "yes"
+  become: 'yes'
   vars:
-    syft_schedule: True
-    syft_immediate: True
+    syft_schedule: true
+    syft_immediate: true
     syft_central_path: /tmp/syft
   roles:
     - deitkrachten.cron
