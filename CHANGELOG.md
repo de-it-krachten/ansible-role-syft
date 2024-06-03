@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/de-it-krachten/ansible-role-syft/compare/v1.2.0...v1.3.0) (2024-06-03)
+
+
+### Features
+
+* Add support for Ubuntu 24.04 LTS + Fedora 40 ([c61e2e2](https://github.com/de-it-krachten/ansible-role-syft/commit/c61e2e2848cb8423301bd6737e1a66bf1ec2b098))
+
 # [1.2.0](https://github.com/de-it-krachten/ansible-role-syft/compare/v1.1.1...v1.2.0) (2023-08-16)
 
 
