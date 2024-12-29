@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/de-it-krachten/ansible-role-syft/compare/v1.3.0...v1.4.0) (2024-12-29)
+
+
+### Features
+
+* Update supported platforms & CI ([89a9cb8](https://github.com/de-it-krachten/ansible-role-syft/commit/89a9cb86cf8ec02806bbc1e023a9162d1189a719))
+
 # [1.3.0](https://github.com/de-it-krachten/ansible-role-syft/compare/v1.2.0...v1.3.0) (2024-06-03)
 
 
