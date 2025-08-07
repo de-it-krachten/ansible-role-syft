@@ -46,9 +46,9 @@
 
 - name: Get version information
   ansible.builtin.set_fact:
-    syft_version_info: "{{ syft_version_info.json | json_query(query) | first }}"
+    syft_version_info: "{{ syft_version_info.json | json_query(qq) | first }}"
   vars:
-    query: "[?tag_name=='{{ syft_version }}']"
+    qq: "[?tag_name=='{{ syft_version }}']"
 
 - name: Construct filename based on the system & architecture
   ansible.builtin.set_fact:
@@ -67,9 +67,9 @@
 
     - name: Get binary location
       ansible.builtin.set_fact:
-        syft_url: "{{ syft_version_info.assets | json_query(query) | first }}"
+        syft_url: "{{ syft_version_info.assets | json_query(qq) | first }}"
       vars:
-        query: "[?name=='{{ syft_file }}'].browser_download_url"
+        qq: "[?name=='{{ syft_file }}'].browser_download_url"
 
     - name: Download & extract binaries
       ansible.builtin.unarchive:
