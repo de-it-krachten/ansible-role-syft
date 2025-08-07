@@ -1,3 +1,14 @@
+# [1.5.0](https://github.com/de-it-krachten/ansible-role-syft/compare/v1.4.0...v1.5.0) (2025-08-07)
+
+
+### Features
+
+* Add support for AlmaLinux 10 ([aa91cf5](https://github.com/de-it-krachten/ansible-role-syft/commit/aa91cf53f3db5c562583348c4ab7c91add8018f8))
+* Add support for Debian 13 (Trixie) ([1d57904](https://github.com/de-it-krachten/ansible-role-syft/commit/1d579043d1052a8d9b288a80cbda2f82d126013b))
+* Add support for OracleLinux 10 ([f3ed751](https://github.com/de-it-krachten/ansible-role-syft/commit/f3ed7517f87832ddcfe7ca32fe5947930fe642ea))
+* Add support for Red Hat Enterprise Linux 10 ([0a15d51](https://github.com/de-it-krachten/ansible-role-syft/commit/0a15d51a623335f4cd351bd9c569fc798d5d62d1))
+* Add support for RockyLinux 10 ([b24df6f](https://github.com/de-it-krachten/ansible-role-syft/commit/b24df6fc5d44ad4e38decb01510d419449430ed6))
+
 # [1.4.0](https://github.com/de-it-krachten/ansible-role-syft/compare/v1.3.0...v1.4.0) (2024-12-29)
 
 
