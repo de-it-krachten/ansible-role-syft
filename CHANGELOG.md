@@ -1,3 +1,13 @@
+# [1.6.0](https://github.com/de-it-krachten/ansible-role-syft/compare/v1.5.0...v1.6.0) (2026-03-15)
+
+
+### Features
+
+* Added support for Fedora 43 ([c6869fa](https://github.com/de-it-krachten/ansible-role-syft/commit/c6869fa7b285854635f4cbd93dddc49f908a49a3))
+* Drop support for Fedora 41 ([73aa731](https://github.com/de-it-krachten/ansible-role-syft/commit/73aa73168f19aee602aa36a5b237d5372257e6b1))
+* Drop support for openSUSE Leap 15 ([7f62017](https://github.com/de-it-krachten/ansible-role-syft/commit/7f62017b11776050e7d8302649da40b66c122264))
+* Drop support for SUSE Linux Enterprise 15 ([98c30af](https://github.com/de-it-krachten/ansible-role-syft/commit/98c30af299a056fd5c038dcc988ad2b7e7bb6a87))
+
 # [1.5.0](https://github.com/de-it-krachten/ansible-role-syft/compare/v1.4.0...v1.5.0) (2025-08-07)
 
 
