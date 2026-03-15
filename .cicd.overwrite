@@ -9,6 +9,12 @@ generic:
     https://github.com/anchore/syft<br>
   collections: []
 
+# Supported platforms
+platforms:
+  ubuntu2004:
+    supported: true
+    ci: true
+
 # Dependencies
 dependencies:
   roles:
