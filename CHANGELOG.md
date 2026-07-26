@@ -1,3 +1,13 @@
+# [1.7.0](https://github.com/de-it-krachten/ansible-role-syft/compare/v1.6.0...v1.7.0) (2026-07-26)
+
+
+### Features
+
+* Add support for ansible-core 2.20+ ([0904199](https://github.com/de-it-krachten/ansible-role-syft/commit/09041992ae092bcb3b2674721ffccb3d5a2ed9bc))
+* Added support for Fedora 44 ([3a4a3c4](https://github.com/de-it-krachten/ansible-role-syft/commit/3a4a3c4672fcf7503168f32d6d6af0f587a9133e))
+* Added support for Ubuntu 26.04 LTS ([29c37e4](https://github.com/de-it-krachten/ansible-role-syft/commit/29c37e4a2c7933a96cab3563c304d974d3364a32))
+* Drop support for Fedora 42 ([87a15a3](https://github.com/de-it-krachten/ansible-role-syft/commit/87a15a3b66ae574e957d039ebf9daea3ea1a655d))
+
 # [1.6.0](https://github.com/de-it-krachten/ansible-role-syft/compare/v1.5.0...v1.6.0) (2026-03-15)
 
 
