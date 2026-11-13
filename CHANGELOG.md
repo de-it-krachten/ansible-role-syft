@@ -1,3 +1,15 @@
+# [1.8.0](https://github.com/de-it-krachten/ansible-role-syft/compare/v1.7.0...v1.8.0) (2026-11-13)
+
+
+### Bug Fixes
+
+* Add Github token support ([8cfc258](https://github.com/de-it-krachten/ansible-role-syft/commit/8cfc25894783c20e62b8011292bc70a0f9eeec51))
+
+
+### Features
+
+* Drop support for Debian 11 (Bullseye) ([49af259](https://github.com/de-it-krachten/ansible-role-syft/commit/49af259be8e4a118800814a4ad5584378ef0c0f0))
+
 # [1.7.0](https://github.com/de-it-krachten/ansible-role-syft/compare/v1.6.0...v1.7.0) (2026-07-26)
 
 
